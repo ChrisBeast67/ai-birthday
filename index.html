@@ -194,7 +194,7 @@
 <script>
 /* ---------------- CONFIG ---------------- */
 const CONFIG = {
-  name: 'AI Buddy',
+  name: 'Percy',
   age: 1,
   music: false
 };
@@ -205,8 +205,9 @@ if(_q.get('age'))  CONFIG.age  = parseInt(_q.get('age'),10) || CONFIG.age;
 if(_q.get('music')==='on') CONFIG.music = true;
 
 const _esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-document.getElementById('name').innerHTML = _esc(CONFIG.name).replace(/\b(AI|Buddy|ChatGPT|Claude|Gemini|Llama|Grok|Mistral|DeepSeek)\b/gi,'<em>$&</em>');
+document.getElementById('name').innerHTML = _esc(CONFIG.name).replace(/\b(AI|Buddy|ChatGPT|Claude|Gemini|Llama|Grok|Mistral|DeepSeek|Percy)\b/gi,'<em>$&</em>');
 document.getElementById('ageNum').textContent = CONFIG.age;
+document.title = 'Happy Birthday, ' + CONFIG.name + ' 🎂';
 
 /* ---------------- CONFETTI ---------------- */
 const cvs = document.getElementById('fx'), ctx = cvs.getContext('2d');
