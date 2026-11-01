@@ -198,7 +198,14 @@ const CONFIG = {
   age: 1,
   music: false
 };
-document.getElementById('name').innerHTML = CONFIG.name.replace(/\b(AI|Buddy|ChatGPT|Claude|Gemini|Llama)\b/i,'<em>$&</em>');
+/* Personalize via URL: index.html?name=Claude&age=2 */
+const _q = new URLSearchParams(location.search);
+if(_q.get('name')) CONFIG.name = _q.get('name');
+if(_q.get('age'))  CONFIG.age  = parseInt(_q.get('age'),10) || CONFIG.age;
+if(_q.get('music')==='on') CONFIG.music = true;
+
+const _esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+document.getElementById('name').innerHTML = _esc(CONFIG.name).replace(/\b(AI|Buddy|ChatGPT|Claude|Gemini|Llama|Grok|Mistral|DeepSeek)\b/gi,'<em>$&</em>');
 document.getElementById('ageNum').textContent = CONFIG.age;
 
 /* ---------------- CONFETTI ---------------- */
@@ -302,8 +309,10 @@ function toggleMusic(){
     let t = 0;
     const loopSong = ()=>{ playSong(); musicTimer = setTimeout(loopSong, 9000); };
     loopSong();
+    document.getElementById('musState').textContent = 'ON';
   } else { clearTimeout(musicTimer); }
 }
+if(CONFIG.music) setTimeout(toggleMusic, 900);
 
 /* ---------------- AUTO CELEBRATION ---------------- */
 setTimeout(()=>{ burst(); }, 700);
